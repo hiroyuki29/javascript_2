@@ -95,8 +95,8 @@
          memo_number /= Number(number);
          break;
        case '=':
-         memo_numer = Number(memo_number);
-         break
+         memo_number = Number(memo_number);
+         break;
 
        default:
          memo_number = Number(number);
@@ -123,8 +123,8 @@
          memo_number /= Number(number);
          break;
        case '=':
-         memo_numer = Number(memo_number);
-         break
+         memo_number = Number(memo_number);
+         break;
        default:
          memo_number = Number(number);
          break;
@@ -150,8 +150,8 @@
          memo_number /= Number(number);
          break;
        case '=':
-         memo_numer = Number(memo_number);
-         break
+         memo_number = Number(memo_number);
+         break;
 
        default:
          memo_number = Number(number);
@@ -182,7 +182,7 @@
          memo_number = Number(memo_number);
          break;
      }
-     memo_operator = "="
+     memo_operator = "=";
      number = 0;
      $("#window").text(memo_number);
    });
