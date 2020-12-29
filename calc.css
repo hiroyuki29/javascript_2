@@ -1,0 +1,20 @@
+#window{
+  width:400px;
+  height:40px;
+  background-color:#000000;
+  color:#fff;
+  text-align:right;
+  line-height:40px;
+}
+
+#button_set{
+  display:flex;
+  flex-wrap:wrap;
+  width:400px;
+}
+.btn{
+  width:25%;
+}
+.long_btn{
+  width:50%;
+}
