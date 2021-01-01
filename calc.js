@@ -1,207 +1,73 @@
- let number = 0;
- let memo_number = null;
- let memo_operator = null;
+ let get_word = ""; //入力値の一時保管
+ let word_number = ""; //入力中の数値（文字列）
+ let number = 0; //入力中の数値（数値）
+ let memo_number = 0; //計算値の保管
+ let memo_operator = '+'; //演算子の保管
+ let window_show = ""; //表示値
+ let sub_memo_number = 0; //商・除の一時保管
+
+//数字の入力
  $(document).ready(function() {
-  $(".no1").click(function() {
-   number = number + "1";
-   $("#window").text(Number(number));
-  });
-  $(".no2").click(function() {
-   number = number + "2";
-   $("#window").text(Number(number));
-  });
-  $(".no3").click(function() {
-   number = number + "3";
-   $("#window").text(Number(number));
-  });
-  $(".no4").click(function() {
-   number = number + "4";
-   $("#window").text(Number(number));
-  });
-  $(".no5").click(function() {
-   number = number + "5";
-   $("#window").text(Number(number));
-  });
-  $(".no6").click(function() {
-   number = number + "6";
-   $("#window").text(Number(number));
-  });
-  $(".no7").click(function() {
-   number = number + "7";
-   $("#window").text(Number(number));
-  });
-  $(".no8").click(function() {
-   number = number + "8";
-   $("#window").text(Number(number));
-  });
-  $(".no9").click(function() {
-   number = number + "9";
-   $("#window").text(Number(number));
-  });
-  $(".no0").click(function() {
-   number = number + "0";
-   $("#window").text(Number(number));
-  });
-  $(".no00").click(function() {
-   number = number + "00";
-   $("#window").text(Number(number));
-  });
-  $(".point").click(function() {
-   number = Number(number) + ".";
-   $("#window").text(number);
+  $(".num").click(function() {
+   get_word = $(this).text();
+   window_show += get_word;
+   $("#window").text(window_show);
+   word_number += get_word;
+   get_word = "";
   });
 
-
-  $(".plus").click(function() {
-   switch (memo_operator) {
-    case '+':
-     memo_number += Number(number);
-     break;
-    case '-':
-     memo_number -= Number(number);
-     break;
-    case '*':
-     memo_number *= Number(number);
-     break;
-    case '/':
-     memo_number /= Number(number);
-     break;
-    case '=':
-     memo_number = Number(memo_number);
-     break;
-
-    default:
-     memo_number = Number(number);
-     break;
+//演算子の入力
+  $(".operator").click(function() {
+   get_word = $(this).text();
+   number = Number(word_number);
+   sub_memo_number = calculate(sub_memo_number, number, memo_operator);
+   if (get_word === "+" || get_word === "-" || get_word === "=") {
+    memo_number += sub_memo_number;
+    sub_memo_number = 0;
    }
-   memo_operator = "+";
-   number = 0;
-   $("#window").text(memo_number);
-  });
-
-
-  $(".minus").click(function() {
-   if (number == 0 && memo_operator !== "=") {
-    number = "-";
-    $("#window").text(number);
+   if (get_word === "=") {
+    memo_operator = "+";
+    word_number = memo_number;
+    window_show = memo_number;
+    memo_number = 0;
    }
    else {
-    switch (memo_operator) {
-     case '+':
-      memo_number += Number(number);
-      break;
-     case '-':
-      memo_number -= Number(number);
-      break;
-     case '*':
-      memo_number *= Number(number);
-      break;
-     case '/':
-      memo_number /= Number(number);
-      break;
-     case '=':
-      memo_number = Number(memo_number);
-      break;
-
-     default:
-      memo_number = Number(number);
-      break;
-    }
-    memo_operator = "-";
-    number = 0;
-    $("#window").text(memo_number);
+    memo_operator = get_word;
+    window_show += get_word;
+    word_number = "";
    }
+   $("#window").text(window_show);
+   get_word = "";
   });
 
-
-  $(".product").click(function() {
-   switch (memo_operator) {
-    case '+':
-     memo_number += Number(number);
-     break;
-    case '-':
-     memo_number -= Number(number);
-     break;
-    case '*':
-     memo_number *= Number(number);
-     break;
-    case '/':
-     memo_number /= Number(number);
-     break;
-    case '=':
-     memo_number = Number(memo_number);
-     break;
-    default:
-     memo_number = Number(number);
-     break;
-   }
-   memo_operator = "*";
-   number = 0;
-   $("#window").text(memo_number);
-  });
-
-
-  $(".slash").click(function() {
-   switch (memo_operator) {
-    case '+':
-     memo_number += Number(number);
-     break;
-    case '-':
-     memo_number -= Number(number);
-     break;
-    case '*':
-     memo_number *= Number(number);
-     break;
-    case '/':
-     memo_number /= Number(number);
-     break;
-    case '=':
-     memo_number = Number(memo_number);
-     break;
-
-    default:
-     memo_number = Number(number);
-     break;
-   }
-   memo_operator = "/";
-   number = 0;
-   $("#window").text(memo_number);
-  });
-
-
-  $(".equal").click(function() {
-   switch (memo_operator) {
-    case '+':
-     memo_number += Number(number);
-     break;
-    case '-':
-     memo_number -= Number(number);
-     break;
-    case '*':
-     memo_number *= Number(number);
-     break;
-    case '/':
-     memo_number /= Number(number);
-     break;
-
-    default:
-     memo_number = Number(memo_number);
-     break;
-   }
-   memo_operator = "=";
-   number = 0;
-   $("#window").text(memo_number);
-  });
-
+//ACの入力
   $(".ac").click(function() {
    number = 0;
-   memo_number = null;
-   memo_operator = null;
+   word_number = "";
+   memo_number = 0;
+   memo_operator = "+";
+   window_show = "";
    $("#window").text(memo_number);
-
   });
-
-
-
  });
+ 
+ //四則演算
+ function calculate(memo, current, operator) {
+  switch (operator) {
+   case '+':
+    return memo + current;
+    break;
+   case '-':
+    return memo - current;
+    break;
+   case '*':
+    return memo * current;
+    break;
+   case '/':
+    return memo / current;
+    break;
+   default:
+    return 0;
+  }
+ }
  
